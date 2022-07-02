@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Sound, der bei Springen entsteht
     /// </summary>
-    public GameObject jumpSound;
+    public AudioSource jumpAudio;
 
     private void Start()
     {
@@ -67,38 +67,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        /// so bewegt der player sich immer nach vorne
-        // transform.position += speed * transform.forward;
-        float h = Input.GetAxis("Horizontal");
+
         anim.SetFloat("forward", 0.7f);
 
-        /*
-        // Drehen
-       if (h > 0f) // nach rechts gehen
-       {
-      towardsY = 0f;
-      transform.position += h * 0.2f *  Vector3.forward;
-      transform.position += speed * transform.forward;
-       }
-    else if (h < 0f) //nach links gehen
-    {
-        towardsY = -180f;
-        transform.position += h * 0.2f *  Vector3.forward;
-        transform.position += speed * transform.forward;
-    }
-   else if (h == 0f)
-        {
-        towardsY = -90f;
-        transform.position += speed * transform.forward;
-        }*/
-        if (faceDetector.faceX < 500f)
+    //Debug.Log(faceDetector.faceX);
+
+
+//relativ möglich
+        if (faceDetector.faceX <= 0.2)
         {
             towardsY = 0f;
             transform.position += speed * Vector3.forward;
             transform.position += speed * transform.forward;
         }
         else if (
-            faceDetector.faceX > 600f //nach links gehen
+            faceDetector.faceX >= 0.55 //nach links gehen
         )
         {
             towardsY = -180f;
@@ -117,7 +100,10 @@ public class Player : MonoBehaviour
                 Quaternion.Euler(0f, towardsY, 0f),
                 Time.deltaTime * 10f);
 
+
         // springen
+        Debug.Log(faceDetector.faceY);
+
         RaycastHit hitInfo;
         onGround =
             Physics
@@ -127,24 +113,16 @@ public class Player : MonoBehaviour
                 0.5f);
         anim.SetBool("grounded", onGround);
 
-        if (faceDetector.faceY < 200f && onGround)
+         if (faceDetector.faceY > 0f && faceDetector.faceY < 0.15f && onGround)
         {
             Vector3 power = rigid.velocity;
             power.y = jumpPush;
             rigid.velocity = power;
-            Instantiate(jumpSound, transform.position, transform.rotation);
+            jumpAudio.Play();
             rigid.AddForce(new Vector3(0f, extraGravity, 0f));
         }
 
-        /*
-        if (Input.GetAxis("Jump") > 0f && onGround)
-        {
-            Vector3 power = rigid.velocity;
-            power.y = jumpPush;
-            rigid.velocity = power;
-        }
-        rigid.AddForce(new Vector3(0f, extraGravity, 0f));
+        
     }
-    */
-    }
+    
 }
