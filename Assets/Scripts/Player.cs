@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Laufgeschwindigkeit der Spielfigur.
     /// </summary>
-    public float speed = 0.15f;
+    public float speed = 1f;
 
     /// <summary>
     /// Das grafische Modell, u.a. für die Drehung in Laufrichtung.
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Kraft, mit der nach oben gesprungen wird.
     /// </summary>
-    private float jumpPush = 5f;
+    private float jumpPush = 12f;
 
     /// <summary>
     /// Verstärkung der Gravitation, damit die Spielfigur schneller fällt.
@@ -74,17 +74,17 @@ public class Player : MonoBehaviour
 
 
 //relativ möglich
-        if (faceDetector.faceX <= 0.2)
+        if (faceDetector.faceX <= 0.28)
         {
-            towardsY = 0f;
-            transform.position += speed * Vector3.forward;
+            towardsY = -45f;
+            transform.position += speed * Vector3.forward; // nochmal anschauen
             transform.position += speed * transform.forward;
         }
         else if (
             faceDetector.faceX >= 0.55 //nach links gehen
         )
         {
-            towardsY = -180f;
+            towardsY = -135f;
             transform.position += -1 * speed * Vector3.forward;
             transform.position += speed * transform.forward;
         }
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
 
 
         // springen
-        Debug.Log(faceDetector.faceY);
+        Debug.Log(faceDetector.faceX);
 
         RaycastHit hitInfo;
         onGround =
