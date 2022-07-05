@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Kraft, mit der nach oben gesprungen wird.
     /// </summary>
-    private float jumpPush = 12f;
+    private float jumpPush = 5f;
 
     /// <summary>
     /// Verstärkung der Gravitation, damit die Spielfigur schneller fällt.
