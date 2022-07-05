@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Laufgeschwindigkeit der Spielfigur.
     /// </summary>
-    public float speed = 1f;
+    // [HideInInspector]
+    public float speed { get;  set;}
 
     /// <summary>
     /// Das grafische Modell, u.a. für die Drehung in Laufrichtung.
@@ -57,15 +58,16 @@ public class Player : MonoBehaviour
     /// </summary>
     public AudioSource jumpAudio;
 
-    private void Start()
+    public void Start()
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         faceDetector = (FaceDetector) FindObjectOfType(typeof (FaceDetector));
+        speed = 0.5f;
     }
 
     // Update is called once per frame
-    private void Update()
+    public void Update()
     {
 
         anim.SetFloat("forward", 0.7f);

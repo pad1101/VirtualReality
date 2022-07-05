@@ -21,5 +21,6 @@ public class Timer : MonoBehaviour
     {
         currentTimeText.text = currentTime.ToString();
         
+        
     }
 }
