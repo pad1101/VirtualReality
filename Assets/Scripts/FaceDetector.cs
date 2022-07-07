@@ -27,9 +27,6 @@ public class FaceDetector : MonoBehaviour
         cascade =
             new CascadeClassifier(Application.dataPath +
                 @"/haarcascade_frontalface_default.xml");
-
-
-         
     }
 
     // Update is called once per frame
@@ -38,14 +35,7 @@ public class FaceDetector : MonoBehaviour
         GetComponent<Renderer>().material.mainTexture = _webCamTexture;
         Mat frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
 
-       // Debug.Log(_webCamTexture.height);
-
         findNewFace (frame);
-
-        // immer mit vorherigen frame vergleichen und wenn abstand zu groß ist dann return;
-
-      //  Debug.Log(frame.height);
-
 
         display (frame);
     }
@@ -56,21 +46,16 @@ public class FaceDetector : MonoBehaviour
             cascade
                 .DetectMultiScale(frame, 1.1, 2, HaarDetectionType.ScaleImage);
 
-        if (previousFaces != null && previousFaces.Height * 0.6f >= faces[0].Height) return; // TODO: nullpointer abfangen
-       
-        
-      //  if(previousFaces.Height * 0.6f >= faces[0].Height || previousFaces.Height * 1.4f <= faces[0].Height) return;
+        if (
+            previousFaces != null &&
+            previousFaces.Height * 0.6f >= faces[0].Height
+        ) return;
 
-      //      if (faces[0].Height < 300f) return;
-
-//Debug.Log(faces[0].Height);
-
-                float widthCam = _webCamTexture.width;
-                float heightCam = _webCamTexture.height;
+        float widthCam = _webCamTexture.width;
+        float heightCam = _webCamTexture.height;
 
         if (faces.Length >= 1)
         {
-           // Debug.Log(faces[0].Location.X / widthCam); // TODO: WErte genau festlegen links:0.55  mitte: 0.4 rechts: 0.16
             MyFace = faces[0];
             faceY = faces[0].Location.Y / heightCam;
             faceX = faces[0].Location.X / widthCam;

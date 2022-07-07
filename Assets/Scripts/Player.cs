@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     /// Laufgeschwindigkeit der Spielfigur.
     /// </summary>
     // [HideInInspector]
-    public float speed { get;  set;}
+    public float speed { get; set; }
 
     /// <summary>
     /// Das grafische Modell, u.a. für die Drehung in Laufrichtung.
@@ -69,21 +69,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-
         anim.SetFloat("forward", 0.7f);
 
-    //Debug.Log(faceDetector.faceX);
-
-
-//relativ möglich
         if (faceDetector.faceX <= 0.28)
         {
             towardsY = -45f;
-            transform.position += speed * Vector3.forward; // nochmal anschauen
+            transform.position += speed * Vector3.forward;
             transform.position += speed * transform.forward;
         }
         else if (
-            faceDetector.faceX >= 0.55 //nach links gehen
+            faceDetector.faceX >= 0.55
         )
         {
             towardsY = -135f;
@@ -102,8 +97,6 @@ public class Player : MonoBehaviour
                 Quaternion.Euler(0f, towardsY, 0f),
                 Time.deltaTime * 10f);
 
-
-        // springen
         Debug.Log(faceDetector.faceX);
 
         RaycastHit hitInfo;
@@ -115,7 +108,7 @@ public class Player : MonoBehaviour
                 0.5f);
         anim.SetBool("grounded", onGround);
 
-         if (faceDetector.faceY > 0f && faceDetector.faceY < 0.15f && onGround)
+        if (faceDetector.faceY > 0f && faceDetector.faceY < 0.15f && onGround)
         {
             Vector3 power = rigid.velocity;
             power.y = jumpPush;
@@ -123,8 +116,5 @@ public class Player : MonoBehaviour
             jumpAudio.Play();
             rigid.AddForce(new Vector3(0f, extraGravity, 0f));
         }
-
-        
     }
-    
 }

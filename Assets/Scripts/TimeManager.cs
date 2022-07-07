@@ -5,27 +5,33 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-
     public static bool stopwatchActive = false;
+
     public Text timeText;
+
     private float time = 0f;
 
-    public void Start(){
+    public void Start()
+    {
         StartTimer();
     }
 
-    public void Update(){
-        if (stopwatchActive) {
+    public void Update()
+    {
+        if (stopwatchActive)
+        {
             time += Time.deltaTime;
-            timeText.text = "Vergangene Zeit: " +"\n"+ time + " s";
+            timeText.text = "Vergangene Zeit: " + "\n" + time + " s";
         }
     }
 
-    public void StartTimer() {
+    public void StartTimer()
+    {
         stopwatchActive = true;
     }
 
-    public static void EndTimer() {
+    public static void EndTimer()
+    {
         stopwatchActive = false;
     }
 }

@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class GoalCollider : MonoBehaviour
 {
-
     public Player player;
- 
-    void OnTriggerEnter(Collider other){
-        if (other.gameObject.tag == "Player") { 
-        TimeManager.EndTimer();
-        player.speed = 0f;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            TimeManager.EndTimer();
+            player.speed = 0f;
         }
-
-
     }
-
-
-
 }
